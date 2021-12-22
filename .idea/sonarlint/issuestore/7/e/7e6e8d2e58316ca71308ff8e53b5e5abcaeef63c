@@ -1,0 +1,27 @@
+
+J
+java:S3740"/Provide the parametrized type for this generic.(¾º¢ºùÿÿÿÿ
+g	java:S116"RRename this field "word_en" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãáâß
+k
+java:S1206Q"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+h	java:S100""NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îğËãúÿÿÿÿ
+h	java:S100&"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â×ÏØûÿÿÿÿ
+~
+java:S1319"hThe type of "singular" should be an interface such as "List" rather than the implementation "ArrayList".(ØÚŞ
+|
+java:S1319"fThe type of "plural" should be an interface such as "List" rather than the implementation "ArrayList".(ØÚŞ
+
+java:S1319"kThe type of "definitions" should be an interface such as "List" rather than the implementation "ArrayList".(ØÚŞ
+‹
+java:S13192"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¸×êüÿÿÿÿ
+‹
+java:S13196"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(±ªÄùÿÿÿÿ
+‹
+java:S1319:"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ô¡¾Áüÿÿÿÿ
+†
+java:S1319B"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ãØÒ
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ØÚŞ
+k	java:S117&"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â×ÏØûÿÿÿÿ
+.
+java:S1700"Rename field "word"(„¸Øãÿÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ŞŠã

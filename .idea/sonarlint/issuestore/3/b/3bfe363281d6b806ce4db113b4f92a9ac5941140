@@ -1,0 +1,14 @@
+
+E
+java:S3740"/Provide the parametrized type for this generic.(»â¹¤
+k
+java:S12064"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+u
+java:S1149B"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(ÿÑæË
+J
+java:S10669"/Merge this if statement with the enclosing one.(´¡Œíúÿÿÿÿ
+‹
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Öìó›ıÿÿÿÿ
+z
+java:S1319#"dThe type of "text" should be an interface such as "List" rather than the implementation "ArrayList".(ıùıŞ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ŞŠã
