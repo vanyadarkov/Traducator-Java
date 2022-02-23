@@ -1,10 +1,82 @@
-# Readme Tema 2 POO
-## SmartTranslator – Serviciu de traducere texte
+# SmartTranslator – Serviciu de traducere texte
+### Introducere
+Scopul acestei teme este de a crea o aplicație similară cu Google Translate care poate să traducă cuvinte sau propoziții dintr-o limbă în alta.
 
-Student: Catruc Ionel 322CBa
+### Descrierea problemei
+Firma la care lucrați are o colecție substanțială de dicționare explicative pentru mai multe limbi și vrea să creeze o aplicație care să rivalizeze cu Google Translate. Prin urmare, principala funcționalitate a aplicației este traducerea de cuvinte și propoziții.
 
-### Maven
-Presupun ca am folosit, fiindca cel putin proiectul a fost creat drept unul Maven si dependenta Gson a fost adaugata la fel prin intermediul Maven.
+Aplicația este dezvoltată de trei echipe separate, o echipă care se ocupă de scanarea dicționarelor și de procesul de OCR (Optical Character Recognition), o echipă care se ocupă de backend și una care se ocupă de frontend. Voi lucrați în echipa de backend care primește informațiile din dicționar de la prima echipă și trebuie să furnizeze date către echipa de frontend.
+
+Prima echipă v-a pus la dispoziție trei fișiere text ce conțin informații parțiale din dicționarele român,francez si rus în format JSON (JavaScript Object Notation). Restul de dicționare vor fi livrate la un alt moment din viitor. Structura unui element din dicționar este următoarea:
+|Nr. linie|Exemplu dicționar român|Descriere câmpuri|
+|--|--|--|
+|1| { |Un obiect JSON este cuprins între { }, o listă este cuprinsă între [ ]|
+|2|"word": "pisică",|Forma de dicționar în limba română|
+|3|"word_en": "cat",|Forma de dicționar în limba engleză – disponibilă pentru orice cuvânt din orice dicționar|
+|4|"type": "noun",|Partea de vorbire – noun, verb|
+|5|"singular": ["pisică"],|Forma de singular a cuvântului|
+|6|"plural": ["pisici"],|Forma de plural a cuvântului|
+|7|"definitions": [|Listă de definiții pentru cuvântul curent|
+|8|{||
+|9|"dict": "Dicționar de sinonime",|Numele dicționarului|
+|10|"dictType": "synonyms",|Tipul dicționarului – synonyms sau definitions|
+|11|"year": 1998,|Anul publicării dicționarului|
+|12|"text": ["mâță", "cotoroabă", "cătușă"]|Listă de sinonime sau de definiții ale cuvântului (în acest exemplu sunt disponibile 3 sinonime)|
+|13|},||
+|14|{||
+|15|"dict": "Dicționarul explicativ al limbii române, ediția a II-a",|Numele dicționarului|
+|16|"dictType": "definitions",|Tipul dicționarului – synonyms sau definitions|
+|17|"year": 2002,|Anul publicării dicționarului|
+|18|"text":["...","...","..."]|Listă de sinonime sau de definiții ale cuvântului (în acest exemplu sunt disponibile 3 definiții)|
+|19|}||
+|20|]||
+|21|}||
+
+Notă: În funcție de tipul părții de vorbire, câmpurile singular și plural pot avea următorul format:
+
+|Parte de vorbire|Singular|Plural|
+|--|--|--|
+|Noun|Listă cu forma de singular a cuvântului|Listă cu forma de plural a cuvântului|
+|Verb|Listă de conjugări la indicativ prezent singular în ordine persoana I, a II-a și a III-a|Listă de conjugări la indicativ prezent plural în ordine persoana I, a II-a și a III-a|
+
+### Functionalitati implementate
+
+1. Citirea din dicționare și salvarea informațiilor într-o singură colecție de date. Pentru citirea din JSON s-a folosit biblioteca [gson](https://github.com/google/gson).
+   - Se vor citi toate fișierele dintr-un folder de intrare care au extensia .json
+   - **Atenție** – nu știți de la început numărul lor
+
+2. Metodă pentru adăugarea unui cuvânt în dicționar
+   - `boolean addWord(Word word, String language)`
+   - Întoarce **true** dacă s-a adăugat cuvântul în dicționar sau **false** dacă există deja cuvântul în dicționar
+
+4. Metodă pentru ștergerea unui cuvânt din dicționar ce primește ca parametru cuvântul și limba
+   - `boolean removeWord(String word, String language)`
+   - Întoarce **true** dacă s-a șters cuvântul în dicționar sau false dacă nu există cuvântul în dicționar
+5. Metodă pentru adăugarea unei noi definiții pentru un cuvânt dat ca parametru
+   - `boolean addDefinitionForWord(String word, String language, Definition definition)`
+   - Întoarce **true** dacă s-a adăugat definiția sau **false** dacă există o definiție din același dicționar (dict)
+6. Metodă pentru ștergerea unei definiții a unui cuvânt dat ca parametru
+   - `boolean removeDefinition(String word, String language, String dictionary)`
+   - Întoarce **true** dacă s-a șters definiția sau **false** dacă nu există o definiție din dicționarul primit ca parametru
+7. Metodă pentru traducerea unui cuvânt
+   - `String translateWord(String word, String fromLanguage, String toLanguage)`
+   - Întoarce **traducerea** cuvântului word din limba **fromLanguage** în limba **toLanguage**
+8. Metodă pentru traducerea unei propoziții
+   - String translateSentence(String sentence, String fromLanguage, String toLanguage)
+   - Întoarce traducerea propoziției sentence din limba fromLanguage în limba toLanguage
+9. Metodă pentru traducerea unei propoziții și furnizarea a **3 variante** de traducere folosind sinonimele cuvintelor
+   - `ArrayList translateSentences(String sentence, String fromLanguage, String toLanguage)`
+   - Întoarce traducerea propoziției sentence din limba **fromLanguage** în limba **toLanguage**
+   - În cazul în care nu există **3 variante** de traducere a propoziției se vor furniza doar variantele posibile
+10. Metodă pentru întoarcerea definițiilor și sinonimelor unui cuvânt
+   -  `ArrayList getDefinitionsForWord(String word, String language)`
+   - Definițiile sunt sortate crescător după anul de apariție al dicționarului
+11. Metodă pentru exportarea unui dicționar în format JSON
+   - `void exportDictionary(String language)`
+   - Se va exporta doar partea din structura de date ce ține de limba primită ca parametru și se vor scrie informațiile într-un fișier
+   - Cuvintele din JSON sunt ordonate alfabetic, iar definițiile sunt ordonate după anul de apariție al dicționarului
+
+## Detalii despre implementare
 
 ### Word
 Clasa principala. Contine informatii despre cuvant, conform formatului specificat in .json fisier. Contine constructor principal si un constructor auxiliar care va completa doar numele, folosit in cautarea unui cuvant in lista. Pe langa asta mai are gettere si settere principale
@@ -14,7 +86,7 @@ Clasa principala. Contine informatii despre cuvant, conform formatului specifica
 3. **compareTo** folosit la sortarea cuvintelor.
 
 ### Definition
-Clasa principala. ontine informatii despre cuvant, conform formatului specificat in .json fisier. Contine constructor principal si un constructor auxiliar care va completa doar campul dict. Pe langa asta gettere si settere
+Clasa principala. ontine informatii despre cuvant, conform formatului specificat in .json fisier. Contine constructor principal si un constructor auxiliar care va completa doar campul dict. Pe langa asta gettere si settere  
 a campurilor principale
 
 1. **equals** la fel ca in cazul word, doar ca deja va compara campurile dict, dictType si year. Daca toate aceste campuri vor fi egale - avem dictionare identice deci va trebui sa verificam in exterior campul **text**.
@@ -43,10 +115,10 @@ Clasa de administrare a dictionarelor. Variabile membru:
 12. **exportDictionary** se face in primul rand sort la toata colectia noastra. Daca nu exista limba ceruta se iese din functie. Se creeaza un fisier cu pathname "dirs_out" care de fapt va fi director si este folosit pentru a verifica existenta directorului dirs_out in care se va face export dictionarului. Daca acel director nu exista, el se creeaza. Dupa care, se creeaza dictionarul in acel director cu numele language_dict.json .Se foloseste GsonBuilder pentru a putea seta format pretty a json si pentru a dezactiva escaparea HTML.
 
 ### Init
-Aici de fapt e main-ul de unde incepe citirea si operarea cu dictionare. La citire se presupune ca directorul de unde se citesc dictionarele exista si acolo se afla doar fisiere valide(format specificat si doar .json) deoarece nu ar fi logic in directorul dat sa se afle alt tip de fisiere.
+Aici de fapt e main-ul de unde incepe citirea si operarea cu dictionare. La citire se presupune ca directorul de unde se citesc dictionarele exista si acolo se afla doar fisiere valide(format specificat si doar .json).
 
 ### Test
-Clasa unde se fac testarile pentru fiecare metoda. Ca variabila membru avem Administration admin pentru a avea acces la metode. Testul pentru metoda getDefinitionForWord este comentat pentru a nu umple consola fiindca se vor afisa definitiile in format .json.
+Clasa unde se fac testarile pentru fiecare metoda. Ca variabila membru avem Administration admin pentru a avea acces la metode. Testul pentru metoda getDefinitionForWord este comentat pentru a nu umple consola fiindca se vor afisa definitiile in format `.json`.
 
-### Feedback
-Tematica a fost una foarte interesanta, cu toate ca unele aspecte ce tin de implementare nu au fost explicate prea bine sau chiar deloc. Din acest motiv unele lucruri, implementari au fost facute mai mult dupa intuitie si s-ar putea sa nu para corecte dar nu am avut de ales. 
+### Copyright
+Drepturile asupra enuntului temei, fisierelor ro_dict.json si fr_dict.json sunt rezervate de catre echipa POO 2021, ACS, UPB.
